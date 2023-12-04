@@ -1,6 +1,9 @@
+// App.js
+
 import React from "react";
 import hotBg from "./assets/hot.jpg";
 import coldBG from "./assets/cold.jpg";
+import { Descriptions } from "./components/Descriptions";
 
 function App() {
   return (
@@ -22,6 +25,8 @@ function App() {
               <h1>36 °C</h1>
             </div>
           </div>
+
+          <Descriptions />
         </div>
       </div>
     </div>
