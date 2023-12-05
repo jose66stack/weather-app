@@ -1,9 +1,8 @@
-// App.js
-
 import React from "react";
 import hotBg from "./assets/hot.jpg";
 import coldBG from "./assets/cold.jpg";
 import { Descriptions } from "./components/Descriptions";
+import { TiWeatherPartlySunny } from "react-icons/ti";
 
 function App() {
   return (
@@ -18,8 +17,8 @@ function App() {
           <div className="section section__temperature">
             <div className="icon">
               <h3>London, GB</h3>
-              <img src="" alt="weather Icon" />
-              <h3>Clody</h3>
+              <TiWeatherPartlySunny />
+              <h3>Cloudy</h3>
             </div>
             <div className="temperature">
               <h1>36 °C</h1>
