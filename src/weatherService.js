@@ -3,8 +3,8 @@ import { async } from "q";
 
 const API_KEY = "c3d7ba24255459ad21867624190e18b6";
 
-const iconCode = (iconId) =>
-  `https://openweathermap.org/img/wn/${iconId}@2x.png`;
+const makeIconURL = (iconId) =>
+  `https://openweathermap.org/themes/openweathermap/assets/vendor/owm/img/widgets/${iconId}.png`;
 
 const getFormattedWeatherData = async (city, units = "metric") => {
   const URL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=${units}`;
@@ -17,12 +17,11 @@ const getFormattedWeatherData = async (city, units = "metric") => {
 
   const { weather, main, wind, sys, name } = data;
 
-  // Ensure the 'weather' array is not empty
   const { description, icon } = weather.length > 0 ? weather[0] : {};
 
   return {
     description,
-    iconCode: icon ? iconCode(icon) : null, // Use iconCode only if icon is available
+    iconURL: makeIconURL(icon),
     temp: main.temp,
     feels_like: main.feels_like,
     temp_min: main.temp_min,

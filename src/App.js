@@ -9,11 +9,17 @@ function App() {
   const [city, setCity] = useState("Paris");
   const [weather, setWeather] = useState(null);
   const [units, setUnits] = useState("metric");
+  const [bg, setBg] = useState(hotBg);
 
   useEffect(() => {
     const fetchWeatherData = async () => {
       const data = await getFormattedWeatherData(city, units);
       setWeather(data);
+      console.log(data);
+
+      const threshold = units === "metric" ? 20 : 60;
+      if (data.temp <= threshold) setBg(coldBG);
+      else setBg(hotBg);
     };
 
     fetchWeatherData();
@@ -37,7 +43,7 @@ function App() {
   };
 
   return (
-    <div className="app" style={{ backgroundImage: `url(${coldBG})` }}>
+    <div className="app" style={{ backgroundImage: `url(${bg})` }}>
       <div className="overlay">
         {weather && (
           <div className="container">
@@ -54,10 +60,7 @@ function App() {
             <div className="section section__temperature">
               <div className="icon">
                 <h3>{`${weather.name}, ${weather.country}`}</h3>
-                <img
-                  src={`https://openweathermap.org/img/wn/${weather.iconCode}.png`}
-                  alt="weatherIcon"
-                />
+                <img src={weather.iconURL} alt="weatherIcon" />
                 <h3>{weather.description}</h3>
               </div>
               <div className="temperature">
