@@ -1,9 +1,9 @@
-import { async } from "q";
 // weatherService.js
+import { async } from "q";
 
 const API_KEY = "c3d7ba24255459ad21867624190e18b6";
 
-const makeIconURL = (iconId) =>
+const iconCode = (iconId) =>
   `https://openweathermap.org/img/wn/${iconId}@2x.png`;
 
 const getFormattedWeatherData = async (city, units = "metric") => {
@@ -15,27 +15,22 @@ const getFormattedWeatherData = async (city, units = "metric") => {
       return data;
     });
 
-  const {
-    weather,
-    main: { temp, feels_like, temp_min, temp_max, pressure, humidity },
-    wind: { speed },
-    sys: { country },
-    name,
-  } = data;
+  const { weather, main, wind, sys, name } = data;
 
-  const { description, icon } = weather[0];
+  // Ensure the 'weather' array is not empty
+  const { description, icon } = weather.length > 0 ? weather[0] : {};
 
   return {
     description,
-    iconURL: makeIconURL(icon),
-    temp,
-    feels_like,
-    temp_min,
-    temp_max,
-    pressure,
-    humidity,
-    speed,
-    country,
+    iconCode: icon ? iconCode(icon) : null, // Use iconCode only if icon is available
+    temp: main.temp,
+    feels_like: main.feels_like,
+    temp_min: main.temp_min,
+    temp_max: main.temp_max,
+    pressure: main.pressure,
+    humidity: main.humidity,
+    speed: wind.speed,
+    country: sys.country,
     name,
   };
 };
