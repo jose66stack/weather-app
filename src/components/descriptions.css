@@ -37,4 +37,10 @@
     color: white;
     margin-left: 5px;
   }
+
+  @media screen and (max-width: 1024px) {
+    .sections__descriptions {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
   
